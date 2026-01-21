@@ -1,27 +1,29 @@
 *-----------------------------------------------------------
-* Title      :
-* Written by :
-* Date       :
-* Description:
+* Title      :  PRACTICAL_02
+* Written by :  Oleksandr Storozhuk
+* Date       :  19/01/2026 
+* Description:  PART1
 *-----------------------------------------------------------
     ORG    $1000
 START:                  ; first instruction of program
 
 * Put program code here
 
-    MOVE.L #%100,   D0
-    MOVE.L #$100,   D1
-    MOVE.L #100,    D2
+    MOVE.L #%100,   D0  ;moving long value (32bit) 4 in binary to data register 0
+    MOVE.L #$100,   D1  ;moving long value (32bit) 100 in hexadecimal to data register 1
+    MOVE.L #100,    D2  ;moving long value (32bit) 100 in decimal to data register 2
     
-    MOVE.L  D0, $3000
-    MOVE.L  D1, $3010
-    MOVE.L  D2, $3020
+    MOVE.L  D0, $3000   ;moving long value (32bit) from data register 0 to memory location 3000
+    MOVE.L  D1, $3010   ;moving long value (32bit) from data register 1 to memory location 3010
+    MOVE.L  D2, $3020   ;moving long value (32bit) from data register 2 to memory location 3020
+
 
     SIMHALT             ; halt simulator
 
 * Put variables and constants here
 
     END    START        ; last line of source
+
 
 *~Font name~Courier New~
 *~Font size~10~
