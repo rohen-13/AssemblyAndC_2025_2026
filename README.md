@@ -124,5 +124,4 @@ HP reaches 0 in any fight. A specific message appears if you die in Chapter 4 wi
 
 ## Known issues
 
-- The Chapter 4 intro text shows HP 70 / ATK 9 / DEF 5 but the actual enemy values are HP 50 / ATK 6 / DEF 2. Does not affect gameplay.
-- `TURN_BOOST` ($400D) is defined in the memory map but not used in the final build.
+- After Chapter 2 there is an output issue
