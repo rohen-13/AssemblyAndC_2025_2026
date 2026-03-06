@@ -24,8 +24,7 @@ A seven-chapter text-based dungeon crawler written entirely in 68000 assembly an
 
 1. Open **Easy68k**
 2. File → Open → `ROHEN_KINGDOM.x68`
-3. Assemble (F2)
-4. Run (F5)
+3. Run (F9)
 
 ---
 
