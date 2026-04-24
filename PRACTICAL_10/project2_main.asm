@@ -9,5 +9,6 @@ main:
     mov ebx, 0
     mov ecx, 3
 
+game_loop:
     mov eax, 0
     ret
