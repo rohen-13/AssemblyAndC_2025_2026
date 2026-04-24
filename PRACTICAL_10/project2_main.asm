@@ -6,5 +6,8 @@ global main
 section .text
 
 main:
+    mov ebx, 0
+    mov ecx, 3
+
     mov eax, 0
     ret
