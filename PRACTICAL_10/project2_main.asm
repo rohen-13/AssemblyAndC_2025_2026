@@ -9,7 +9,7 @@ extern register_adder
 section .data
     prompt db "Enter number: ", 0
     result db "The sum is: %d", 10, 0
-    final_result db "Final sum is: ", 0
+    final_result db "Final sum is: %d", 10, 0
     input_format db "%d", 0
 
 section .bss
@@ -59,6 +59,11 @@ game_loop:
 
     sub r12d, 1
     jne game_loop
+
+    lea rdi, [final_result]
+    mov esi, ebx
+    mov eax, 0
+    call printf
 
     mov eax, 0
     pop r12
