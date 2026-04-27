@@ -11,6 +11,7 @@ section .data
     result db "The sum is: %d", 10, 0
     final_result db "Final sum is: %d", 10, 0
     input_format db "%d", 0
+    input_error db "Invalid input. Please enter integers only.", 10, 0
 
 section .bss
     first_number resd 1
@@ -36,6 +37,8 @@ game_loop:
     lea rsi, [first_number]
     mov eax, 0
     call scanf
+    cmp eax, 1
+    jne input_failed
 
     lea rdi, [prompt]
     mov eax, 0
@@ -45,6 +48,8 @@ game_loop:
     lea rsi, [second_number]
     mov eax, 0
     call scanf
+    cmp eax, 1
+    jne input_failed
 
     mov edi, [first_number]
     mov esi, [second_number]
@@ -66,6 +71,16 @@ game_loop:
     call printf
 
     mov eax, 0
+    jmp finish
+
+input_failed:
+    lea rdi, [input_error]
+    mov eax, 0
+    call printf
+
+    mov eax, 1
+
+finish:
     pop r12
     pop rbx
     pop rbp
