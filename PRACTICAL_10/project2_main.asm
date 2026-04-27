@@ -48,6 +48,8 @@ game_loop:
     mov esi, [second_number]
     call register_adder
 
+    add ebx, eax
+
     lea rdi, [result]
     mov esi, eax
     mov eax, 0
