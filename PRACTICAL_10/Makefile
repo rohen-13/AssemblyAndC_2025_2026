@@ -3,20 +3,31 @@ ASFLAGS=-f elf64 -g
 CC=gcc
 CFLAGS=-no-pie
 
-SOURCES=project2_main.asm project2_lib.asm
-OBJECTS=$(SOURCES:.asm=.o)
-EXECUTABLE=project2_demo
+DEMO=project2_demo
+TESTS=project2_tests
 
-all: $(EXECUTABLE)
+DEMO_OBJECTS=project2_main.o project2_lib.o
+TEST_OBJECTS=test_project2.o project2_lib.o
 
-$(EXECUTABLE): $(OBJECTS)
-	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+all: $(DEMO) $(TESTS)
+
+$(DEMO): $(DEMO_OBJECTS)
+	$(CC) $(CFLAGS) $(DEMO_OBJECTS) -o $@
+
+$(TESTS): $(TEST_OBJECTS)
+	$(CC) $(CFLAGS) $(TEST_OBJECTS) -o $@
 
 %.o: %.asm
 	$(AS) $(ASFLAGS) $< -o $@
 
-run: $(EXECUTABLE)
-	./$(EXECUTABLE)
+%.o: %.c
+	$(CC) -Wall -Wextra -std=c11 -g -c $< -o $@
+
+run: $(DEMO)
+	./$(DEMO)
+
+test: $(TESTS)
+	./$(TESTS)
 
 clean:
-	rm -f *.o $(EXECUTABLE)
+	rm -f *.o $(DEMO) $(TESTS)
