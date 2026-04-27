@@ -9,3 +9,5 @@ register_adder:
     mov eax, edi
     add eax, esi
     ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits

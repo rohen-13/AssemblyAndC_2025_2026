@@ -4,10 +4,11 @@
 global main
 extern printf
 extern scanf
+extern register_adder
 
 section .data
     prompt db "Enter number: ", 0
-    result db "The sum is: ", 0
+    result db "The sum is: %d", 10, 0
     final_result db "Final sum is: ", 0
     input_format db "%d", 0
 
@@ -42,6 +43,15 @@ game_loop:
     lea rsi, [second_number]
     mov eax, 0
     call scanf
+
+    mov edi, [first_number]
+    mov esi, [second_number]
+    call register_adder
+
+    lea rdi, [result]
+    mov esi, eax
+    mov eax, 0
+    call printf
 
     mov eax, 0
     pop rbp
