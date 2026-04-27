@@ -13,6 +13,7 @@ section .data
 
 section .bss
     first_number resd 1
+    second_number resd 1
 
 section .text
 
@@ -30,6 +31,15 @@ game_loop:
 
     lea rdi, [input_format]
     lea rsi, [first_number]
+    mov eax, 0
+    call scanf
+
+    lea rdi, [prompt]
+    mov eax, 0
+    call printf
+
+    lea rdi, [input_format]
+    lea rsi, [second_number]
     mov eax, 0
     call scanf
 
