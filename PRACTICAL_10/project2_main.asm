@@ -22,3 +22,5 @@ game_loop:
 
     mov eax, 0
     ret
+
+section .note.GNU-stack noalloc noexec nowrite progbits
