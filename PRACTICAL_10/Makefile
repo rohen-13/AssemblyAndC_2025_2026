@@ -1,11 +1,22 @@
-all:
-	echo "Assemble and link project 2"
+AS=nasm
+ASFLAGS=-f elf64 -g
+CC=gcc
+CFLAGS=-no-pie
 
-run:
-	echo "Run project 2"
+SOURCES=project2_main.asm
+OBJECTS=$(SOURCES:.asm=.o)
+EXECUTABLE=project2_demo
 
-test:
-	echo "Run project 2 tests"
+all: $(EXECUTABLE)
+
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $(OBJECTS) -o $@
+
+%.o: %.asm
+	$(AS) $(ASFLAGS) $< -o $@
+
+run: $(EXECUTABLE)
+	./$(EXECUTABLE)
 
 clean:
-	echo "Remove build files"
+	rm -f *.o $(EXECUTABLE)
