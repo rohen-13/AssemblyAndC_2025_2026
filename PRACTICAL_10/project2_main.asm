@@ -3,6 +3,11 @@
 
 global main
 
+section .data
+    prompt db "Enter number: ", 0
+    result db "The sum is: ", 0
+    final_result db "Final sum is: ", 0
+
 section .text
 
 main:
