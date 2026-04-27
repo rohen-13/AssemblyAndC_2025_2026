@@ -21,9 +21,11 @@ section .text
 main:
     push rbp
     mov rbp, rsp
+    push rbx
+    push r12
 
     mov ebx, 0
-    mov ecx, 3
+    mov r12d, 3
 
 game_loop:
     lea rdi, [prompt]
@@ -55,7 +57,12 @@ game_loop:
     mov eax, 0
     call printf
 
+    sub r12d, 1
+    jne game_loop
+
     mov eax, 0
+    pop r12
+    pop rbx
     pop rbp
     ret
 
