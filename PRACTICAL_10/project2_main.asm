@@ -10,12 +10,14 @@ section .data
     prompt db "Enter number: ", 0
     result db "The sum is: %d", 10, 0
     final_result db "Final sum is: %d", 10, 0
-    input_format db "%d", 0
+    input_format db "%lld", 0
     input_error db "Invalid input. Please enter integers only.", 10, 0
+    range_error db "Input out of 32-bit range. Exiting safely.", 10, 0
+    overflow_error db "Arithmetic overflow detected. Exiting safely.", 10, 0
 
 section .bss
-    first_number resd 1
-    second_number resd 1
+    first_number resq 1
+    second_number resq 1
 
 section .text
 
@@ -39,6 +41,10 @@ game_loop:
     call scanf
     cmp eax, 1
     jne input_failed
+    cmp qword [first_number], 2147483647
+    jg input_out_of_range
+    cmp qword [first_number], -2147483648
+    jl input_out_of_range
 
     lea rdi, [prompt]
     mov eax, 0
@@ -50,12 +56,18 @@ game_loop:
     call scanf
     cmp eax, 1
     jne input_failed
+    cmp qword [second_number], 2147483647
+    jg input_out_of_range
+    cmp qword [second_number], -2147483648
+    jl input_out_of_range
 
-    mov edi, [first_number]
-    mov esi, [second_number]
+    mov edi, dword [first_number]
+    mov esi, dword [second_number]
     call register_adder
+    jo arithmetic_overflow
 
     add ebx, eax
+    jo arithmetic_overflow
 
     lea rdi, [result]
     mov esi, eax
@@ -75,6 +87,22 @@ game_loop:
 
 input_failed:
     lea rdi, [input_error]
+    mov eax, 0
+    call printf
+
+    mov eax, 1
+    jmp finish
+
+input_out_of_range:
+    lea rdi, [range_error]
+    mov eax, 0
+    call printf
+
+    mov eax, 1
+    jmp finish
+
+arithmetic_overflow:
+    lea rdi, [overflow_error]
     mov eax, 0
     call printf
 

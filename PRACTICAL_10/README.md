@@ -96,6 +96,16 @@ make clean
 
 The original example comments mention missing input validation as a vulnerability. This version checks the return value from `scanf`. If the user enters invalid input, the program prints an error message and exits with a non-zero return value.
 
+Input is read into a 64-bit temporary value and then checked against the signed 32-bit range before it is passed to the adder. This prevents very large input values from silently wrapping into a smaller integer.
+
+The program also checks signed arithmetic overflow after each pair addition and after each running-sum update. If overflow is detected, it prints:
+
+```text
+Arithmetic overflow detected. Exiting safely.
+```
+
+The overflow check uses the x86_64 overflow flag. After an `add` instruction, `jo` jumps to the error handler if the signed result cannot be represented.
+
 The assembly files also include:
 
 ```asm

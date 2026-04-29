@@ -69,6 +69,55 @@ Purpose:
 
 This confirms that the program does not blindly trust user input.
 
+## Input Range Test
+
+Command:
+
+```bash
+make run
+```
+
+Input:
+
+```text
+999999999999999999999999999999999999999
+```
+
+Expected output:
+
+```text
+Input out of 32-bit range. Exiting safely.
+```
+
+Purpose:
+
+This confirms that oversized numeric input is rejected before it can wrap into a smaller integer value.
+
+## Arithmetic Overflow Test
+
+Command:
+
+```bash
+make run
+```
+
+Input:
+
+```text
+2147483647
+1
+```
+
+Expected output:
+
+```text
+Arithmetic overflow detected. Exiting safely.
+```
+
+Purpose:
+
+This confirms that signed overflow is detected when the pair addition cannot fit in a 32-bit signed integer.
+
 ## C Test Harness
 
 Command:
